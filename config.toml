@@ -1,4 +1,4 @@
-base_url = "https://h4shcore.github.io/"
+base_url = "https://h4shcore.github.io"
 title = "h4shcore."
 description = "This is an example description"
 build_search_index = true
