@@ -39,8 +39,8 @@ menu = [
 ]
 
 socials = [
-  { name = "x", url = "https://x.com/frdaksh", icon = "x-twitter" },
-  { name = "github", url = "https://github.com/h4shcore/", icon = "github" },
+  # { name = "x", url = "https://x.com/frdaksh", icon = "x-twitter" },
+  # { name = "github", url = "https://github.com/h4shcore/", icon = "github" },
 ]
 
 stylesheets = [
