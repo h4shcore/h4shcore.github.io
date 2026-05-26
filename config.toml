@@ -1,6 +1,6 @@
 base_url = "https://h4shcore.github.io"
 title = "h4shcore."
-description = "An undergrad student who loves computers and music."
+description = "An undergrad student who loves computers & music."
 build_search_index = true
 generate_feeds = true
 compile_sass = true
