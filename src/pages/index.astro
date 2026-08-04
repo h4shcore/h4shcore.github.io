@@ -1,17 +1,41 @@
 ---
-
+import Base from "../layouts/Base.astro";
+import { links } from "../data/links.js";
+import ThemeToggle from "../components/ThemeToggle.astro";
 ---
+<Base title="ls ~/daksh">
+  <ThemeToggle />
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+  <main id="normal-view">
+    <h1 class="name-swap">
+      <span class="name-default">Daksh</span>
+      <span class="name-hover">h4shcore</span>
+    </h1>
+    <ul class="link-list">
+      {links.map((l) => (
+        <li>
+          {l.url ? (
+            <a href={l.url} target="_blank" rel="noreferrer">{l.label}</a>
+          ) : l.copy ? (
+            <span class="copyable" data-copy={l.copy}>{l.label}</span>
+          ) : (
+            <span>{l.label}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+  </main>
+</Base>
+
+<script>
+  document.querySelectorAll(".copyable").forEach((el) => {
+    const original = el.textContent;
+    el.addEventListener("click", async () => {
+      const value = el.getAttribute("data-copy");
+      if (!value) return;
+      await navigator.clipboard.writeText(value);
+      el.textContent = "copied!";
+      setTimeout(() => (el.textContent = original), 1000);
+    });
+  });
+</script>

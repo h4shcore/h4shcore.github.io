@@ -1,0 +1,25 @@
+<button id="theme-toggle" class="theme-toggle corner-widget icon-btn" aria-label="toggle theme">
+  <span class="nf-icon" id="theme-icon">&#xf185;</span>
+</button>
+
+<script>
+  const btn = document.getElementById("theme-toggle")!;
+  const icon = document.getElementById("theme-icon")!;
+  const stored = localStorage.getItem("theme");
+  const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+  const initial = stored ?? (prefersLight ? "light" : "dark");
+
+  applyTheme(initial);
+
+  btn.addEventListener("click", () => {
+    const current = document.documentElement.getAttribute("data-theme") ?? "dark";
+    const next = current === "dark" ? "light" : "dark";
+    applyTheme(next);
+    localStorage.setItem("theme", next);
+  });
+
+  function applyTheme(theme: string) {
+    document.documentElement.setAttribute("data-theme", theme);
+    icon.textContent = theme === "dark" ? "\uf185" : "\uf186"; // sun : moon
+  }
+</script>

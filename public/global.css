@@ -1,0 +1,138 @@
+:root {
+  --bg: #12140e;
+  --fg: #dbdecf;
+  --dim: #8e9285;
+  --accent: #b1d18a;
+  --panel: rgba(219, 222, 207, 0.06);
+  --panel-border: rgba(219, 222, 207, 0.14);
+}
+[data-theme="light"] {
+  --bg: #f9faef;
+  --fg: #1a1c16;
+  --dim: #6b6f62;
+  --accent: #425c23;
+  --panel: rgba(26, 28, 22, 0.05);
+  --panel-border: rgba(26, 28, 22, 0.12);
+}
+@font-face {
+  font-family: "Symbols Nerd Font";
+  src: url("/fonts/SymbolsNerdFontMono-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 15px;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+main {
+  text-align: center;
+  padding: 5rem 1.5rem 6rem;
+  max-width: 90vw;
+}
+h1 {
+  margin: 0 0 1.5rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.link-list a,
+.link-list span {
+  color: var(--dim);
+  text-decoration: none;
+}
+.link-list a:hover {
+  color: var(--accent);
+}
+.copyable {
+  cursor: pointer;
+}
+.corner-widget {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.theme-toggle {
+  top: 1.5rem;
+  right: 1.5rem;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(8px);
+  border-radius: 999px;
+  padding: 0.4rem;
+}
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--dim);
+  cursor: pointer;
+  width: 1.8rem;
+  height: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
+}
+.icon-btn:hover {
+  color: var(--accent);
+  background: var(--panel-border);
+}
+.nf-icon {
+  font-family: "Symbols Nerd Font", monospace;
+  font-size: 1rem;
+  line-height: 1;
+}
+.name-swap {
+  display: inline-grid;
+  cursor: default;
+}
+.name-swap span {
+  grid-area: 1 / 1;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+.name-hover {
+  opacity: 0;
+  color: var(--accent);
+  transform: translateY(4px);
+}
+.name-swap:hover .name-default {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+.name-swap:hover .name-hover {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (max-width: 480px) {
+  .theme-toggle {
+    top: 1rem;
+    right: 1rem;
+  }
+  h1 {
+    font-size: 1.3rem;
+  }
+}
