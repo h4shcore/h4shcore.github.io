@@ -18,7 +18,8 @@ file-structure
 ├── README.md
 ├── src
 │   ├── components
-│   │   └── ThemeToggle.astro
+│   │   ├── ThemeToggle.astro
+│   │   └── CursorTrail.astro
 │   ├── data
 │   │   └── links.js
 │   ├── layouts
