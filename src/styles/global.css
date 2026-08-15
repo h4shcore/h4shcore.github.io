@@ -13,6 +13,10 @@
   margin: 0;
   padding: 0;
 }
+::selection {
+  background-color: var(--accent);
+  color: var(--bg);
+}
 html {
   scroll-behavior: smooth;
 }
