@@ -1,0 +1,53 @@
+---
+---
+<div id="statusbar">
+  <div id="ws-indicators">
+    <button class="ws-btn active" data-target="ws1">01</button>
+    <button class="ws-btn" data-target="ws2">02</button>
+    <button class="ws-btn" data-target="ws3">03</button>
+    <button class="ws-btn" data-target="ws4">04</button>
+  </div>
+  <div id="clock">--:--:--</div>
+</div>
+
+<script>
+  function tick() {
+    const d = new Date();
+    const el = document.getElementById('clock');
+    if (el) el.textContent = d.toLocaleTimeString('en-GB');
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  const sections = document.querySelectorAll('.ws');
+  const btns = document.querySelectorAll<HTMLButtonElement>('.ws-btn');
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          btns.forEach((b) => b.classList.toggle('active', b.dataset.target === en.target.id));
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+  sections.forEach((s) => io.observe(s));
+
+  btns.forEach((b) =>
+    b.addEventListener('click', () => {
+      const target = document.getElementById(b.dataset.target!);
+      target?.scrollIntoView({ behavior: 'smooth' });
+    })
+  );
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const rio = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) en.target.classList.add('in');
+      });
+    },
+    { threshold: 0.15 }
+  );
+  revealEls.forEach((el) => rio.observe(el));
+</script>

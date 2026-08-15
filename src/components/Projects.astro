@@ -1,0 +1,24 @@
+---
+import type { PinnedRepo } from '../lib/github';
+
+interface Props {
+  repos: PinnedRepo[];
+}
+const { repos } = Astro.props;
+---
+<section class="ws" id="ws3">
+  <div class="tag reveal">workspace 03 — pinned</div>
+  <div class="proj-grid reveal">
+    {repos.map((r) => (
+      <a class="proj" href={r.url} target="_blank" rel="noopener noreferrer">
+        <h3>{r.name}</h3>
+        <p>{r.description}</p>
+        <div class="proj-meta">
+          <span><span class="dot"></span>{r.language}</span>
+          <span>&#9733; {r.stars}</span>
+          <span>&#8983; {r.forks}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

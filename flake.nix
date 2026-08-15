@@ -1,5 +1,5 @@
 {
-  description = "Astro dev environment";
+  description = "portfolio dev environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -13,14 +13,7 @@
       in
       {
         devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            nodejs_22
-            pnpm
-          ];
-
-          shellHook = ''
-            echo "astro dev shell — node $(node -v), pnpm $(pnpm -v)"
-          '';
+          packages = with pkgs; [ nodejs_22 pnpm ];
         };
       });
 }

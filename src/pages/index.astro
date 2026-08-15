@@ -1,43 +1,32 @@
 ---
-import Base from "../layouts/Base.astro";
-import { links } from "../data/links.js";
-import ThemeToggle from "../components/ThemeToggle.astro";
-import CursorTrail from "../components/CursorTrail.astro";
+import { getPinnedRepos } from '../lib/github';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Projects from '../components/Projects.astro';
+import Contact from '../components/Contact.astro';
+import StatusBar from '../components/StatusBar.astro';
+import TopBar from '../components/TopBar.astro';
+import '../styles/global.css';
+
+const repos = await getPinnedRepos('h4shcore');
 ---
-<Base title="daksh">
-  <ThemeToggle />
-  <CursorTrail />
-
-  <main id="normal-view">
-    <h1 class="name-swap">
-      <span class="name-default">Daksh</span>
-      <span class="name-hover">h4shcore</span>
-    </h1>
-    <ul class="link-list">
-      {links.map((l) => (
-        <li>
-          {l.url ? (
-            <a href={l.url} target="_blank" rel="noreferrer">{l.label}</a>
-          ) : l.copy ? (
-            <span class="copyable" data-copy={l.copy}>{l.label}</span>
-          ) : (
-            <span>{l.label}</span>
-          )}
-        </li>
-      ))}
-    </ul>
-  </main>
-</Base>
-
-<script>
-  document.querySelectorAll(".copyable").forEach((el) => {
-    const original = el.textContent;
-    el.addEventListener("click", async () => {
-      const value = el.getAttribute("data-copy");
-      if (!value) return;
-      await navigator.clipboard.writeText(value);
-      el.textContent = "copied!";
-      setTimeout(() => (el.textContent = original), 1000);
-    });
-  });
-</script>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>daksh — systems &amp; backend</title>
+  <meta name="description" content="Portfolio of Daksh (h4shcore) — systems and backend engineer, NixOS + Niri." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <TopBar />
+  <Hero />
+  <About />
+  <Projects repos={repos} />
+  <Contact />
+  <StatusBar />
+</body>
+</html>
