@@ -13,10 +13,6 @@
   margin: 0;
   padding: 0;
 }
-::selection {
-  background-color: var(--accent);
-  color: var(--bg);
-}
 html {
   scroll-behavior: smooth;
 }
@@ -456,4 +452,9 @@ h3 {
     transform: none;
     transition: none;
   }
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--bg);
 }
