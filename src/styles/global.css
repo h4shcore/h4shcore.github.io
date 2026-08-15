@@ -94,6 +94,10 @@ h3 {
   max-width: 38ch;
   line-height: 1.7;
 }
+.heading {
+  background-color: var(--accent);
+  color: var(--bg);
+}
 .role-line {
   color: var(--accent);
   font-size: 13px;
@@ -454,6 +458,7 @@ h3 {
   }
 }
 
+/* for selected area */
 ::selection {
   background-color: var(--accent);
   color: var(--bg);
