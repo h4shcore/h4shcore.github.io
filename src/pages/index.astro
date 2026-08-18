@@ -5,6 +5,7 @@ import About from '../components/About.astro';
 import Projects from '../components/Projects.astro';
 import Contact from '../components/Contact.astro';
 import StatusBar from '../components/StatusBar.astro';
+import Footer from '../components/Footer.astro';
 import TopBar from '../components/TopBar.astro';
 import '../styles/global.css';
 
@@ -15,9 +16,9 @@ const repos = await getPinnedRepos('h4shcore');
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>daksh — systems &amp; backend</title>
-  <meta name="description" content="Portfolio of Daksh (h4shcore) — systems and backend engineer, NixOS + Niri." />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>daksh / h4shcore</title>
+  <meta name="description" content="Portfolio of Daksh (h4shcore)." />
+  <link rel="icon" type="image/png" href="https://github.com/h4shcore.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
@@ -27,6 +28,7 @@ const repos = await getPinnedRepos('h4shcore');
   <About />
   <Projects repos={repos} />
   <Contact />
+  <Footer />
   <StatusBar />
 </body>
 </html>

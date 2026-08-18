@@ -1,12 +1,13 @@
+
 ---
 ---
 <section class="ws" id="ws1">
   <div class="tag reveal">workspace 01 — intro</div>
   <div class="bsp reveal">
-    <div class="tile tile-master">
+    <div class="tile tile-master" id="hero-to-about" role="button" tabindex="0" aria-label="Jump to about section">
       <h1>daksh.</h1>
-      <p>Systems &amp; backend engineer. Building on NixOS and living inside a Niri tiling session most of the day.</p>
-      <div class="role-line">$ whoami &rarr; building small, precise tools</div>
+      <p>Chasing niche, obscure, and new: music, games, art, philosophy, tech.</p>
+      <div class="role-line">$ whoami &rarr; probably in a rabbit hole rn</div>
     </div>
     <div class="stack">
       <div class="tile">
@@ -20,3 +21,17 @@
     </div>
   </div>
 </section>
+
+<script>
+  const heroMaster = document.getElementById('hero-to-about');
+  const jumpToAbout = () => {
+    document.getElementById('ws2')?.scrollIntoView({ behavior: 'smooth' });
+  };
+  heroMaster?.addEventListener('click', jumpToAbout);
+  heroMaster?.addEventListener('keydown', (e) => {
+    if (e instanceof KeyboardEvent && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      jumpToAbout();
+    }
+  });
+</script>

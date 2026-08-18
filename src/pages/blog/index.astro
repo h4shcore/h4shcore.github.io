@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import TopBar from '../../components/TopBar.astro';
+import Footer from '../../components/Footer.astro';
+import '../../styles/global.css';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>blog / daksh</title>
+  <meta name="description" content="blog posts for daksh / h4shcore." />
+  <link rel="icon" type="image/png" href="https://github.com/h4shcore.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <TopBar />
+
+  <section class="blog-header">
+    <div class="tag">writing</div>
+    <h1>blog</h1>
+  </section>
+
+  <section class="blog-list">
+    {posts.map((post) => (
+      <a class="blog-card" href={`/blog/${post.slug}`}>
+        <div class="blog-card-date">
+          {post.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}
+        </div>
+        <h2>{post.data.title}</h2>
+        <p>{post.data.description}</p>
+        {post.data.tags.length > 0 && (
+          <div class="blog-card-tags">
+            {post.data.tags.map((t) => <span>{t}</span>)}
+          </div>
+        )}
+      </a>
+    ))}
+    {posts.length === 0 && (
+      <div class="blog-empty">nothing posted yet.</div>
+    )}
+  </section>
+
+  <Footer />
+</body>
+</html>
