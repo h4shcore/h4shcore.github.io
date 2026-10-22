@@ -29,7 +29,7 @@ jobs:
 
       - name: Fetch pinned repos
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # provided automatically, nothing to set up
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           nix run .#pinned -- h4shcore || echo "pinned fetch failed, using committed data/pinned.json if any"
           git add -f data/pinned.json || true
