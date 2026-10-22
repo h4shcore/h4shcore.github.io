@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ section.title }} · {{ config.title }}{% endblock %}
+{% block content %}
+<h1>{{ section.title }}</h1>
+{% set pinned = load_data(path="data/pinned.json", required=false) %}
+<div class="cards">
+  {% if pinned %}
+  {% for r in pinned.repos %}
+  <a class="card" href="{{ r.url }}">
+    <h3>{{ r.name }}</h3>
+    {% if r.description %}<p>{{ r.description }}</p>{% endif %}
+    <div class="pills">
+      {% if r.language %}<span class="pill">{{ r.language }}</span>{% endif %}
+      {% if r.stars %}<span class="stat">★ {{ r.stars }}</span>{% endif %}
+      {% if r.forks %}<span class="stat">⑂ {{ r.forks }}</span>{% endif %}
+    </div>
+  </a>
+  {% endfor %}
+  {% else %}
+  {% for p in section.pages %}
+  <a class="card" href="{{ p.permalink }}">
+    <h3>{{ p.title }}</h3>
+    <p>{{ p.description }}</p>
+    {% if p.extra.stack %}<div class="pills">{% for s in p.extra.stack %}<span class="pill">{{ s }}</span>{% endfor %}</div>{% endif %}
+  </a>
+  {% endfor %}
+  {% endif %}
+</div>
+{% if pinned %}
+<p class="muted more"><a href="{{ config.extra.github }}?tab=repositories">more on GitHub</a></p>
+{% endif %}
+{% endblock %}

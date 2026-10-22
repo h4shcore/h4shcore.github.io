@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow" data-type="25">$ whoami <span class="c"># {{ config.extra.tagline | default(value="developer / tinkerer / writer") }}</span></p>
+  <h1 data-type="55">{{ section.title }}</h1>
+  <div class="lead" data-type="16">{{ section.content | safe }}</div>
+  <div class="cta" data-reveal>
+    <a class="btn" href="{{ get_url(path='@/projects/_index.md') }}">Projects</a>
+    <a class="btn" href="{{ get_url(path='@/blog/_index.md') }}">Blog</a>
+    <a class="btn" href="{{ get_url(path='@/about.md') }}">About</a>
+  </div>
+</section>
+
+{% set pinned = load_data(path="data/pinned.json", required=false) %}
+{% set projects = get_section(path="projects/_index.md") %}
+<section class="block" data-reveal>
+  <div class="block-head">
+    <h2>Projects</h2>
+    <a href="{{ projects.permalink }}">view all</a>
+  </div>
+  <div class="cards">
+    {% if pinned %}
+    {% for r in pinned.repos %}
+    {% if loop.index > 3 %}{% break %}{% endif %}
+    <a class="card" href="{{ r.url }}">
+      <h3>{{ r.name }}</h3>
+      {% if r.description %}<p>{{ r.description }}</p>{% endif %}
+      <div class="pills">
+        {% if r.language %}<span class="pill">{{ r.language }}</span>{% endif %}
+        {% if r.stars %}<span class="stat">★ {{ r.stars }}</span>{% endif %}
+      </div>
+    </a>
+    {% endfor %}
+    {% else %}
+    {% for p in projects.pages %}
+    {% if loop.index > 3 %}{% break %}{% endif %}
+    <a class="card" href="{{ p.permalink }}">
+      <h3>{{ p.title }}</h3>
+      <p>{{ p.description }}</p>
+      {% if p.extra.stack %}
+      <div class="pills">{% for s in p.extra.stack %}<span class="pill">{{ s }}</span>{% endfor %}</div>
+      {% endif %}
+    </a>
+    {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+{% set blog = get_section(path="blog/_index.md") %}
+<section class="block" data-reveal>
+  <div class="block-head">
+    <h2>Latest posts</h2>
+    <a href="{{ blog.permalink }}">all posts</a>
+  </div>
+  <ul class="post-list">
+    {% for p in blog.pages %}
+    {% if loop.index > 5 %}{% break %}{% endif %}
+    <li>
+      <time>{{ p.date | date(format="%Y-%m-%d") }}</time>
+      <a href="{{ p.permalink }}">{{ p.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

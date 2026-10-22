@@ -1,0 +1,16 @@
+base_url = "https://h4shcore.github.io"
+title = "daksh"
+description = "Developer, tinkerer, writer."
+default_language = "en"
+generate_feeds = true
+build_search_index = false
+taxonomies = [{ name = "tags", feed = true }]
+
+[markdown]
+[markdown.highlighting]
+theme = "catppuccin-mocha"
+
+[extra]
+author = "Daksh"
+github = "https://github.com/h4shcore"
+email = "dakshgajbhiye@proton.me"

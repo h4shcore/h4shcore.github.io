@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>#{{ term.name }}</h1>
+<ul class="post-list">
+  {% for p in term.pages %}
+  <li><time>{{ p.date | date(format="%b %d, %Y") }}</time> <a href="{{ p.permalink }}">{{ p.title }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

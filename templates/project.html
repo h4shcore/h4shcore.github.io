@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ page.title }} · {{ config.title }}{% endblock %}
+{% block description %}{{ page.description }}{% endblock %}
+{% block content %}
+<article>
+  <h1>{{ page.title }}</h1>
+  <p class="muted">
+    {% if page.extra.repo %}<a href="{{ page.extra.repo }}">Source</a>{% endif %}
+    {% if page.extra.link %} · <a href="{{ page.extra.link }}">Live</a>{% endif %}
+  </p>
+  {{ page.content | safe }}
+</article>
+{% endblock %}

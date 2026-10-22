@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Tags · {{ config.title }}{% endblock %}
+{% block content %}
+<h1>Tags</h1>
+<p class="muted">tree /posts</p>
+<pre class="tree">.
+{% for t in terms %}{% set last_t = loop.last %}{% if last_t %}└── {% else %}├── {% endif %}<a href="{{ t.permalink }}">#{{ t.name }}</a>
+{% for p in t.pages %}{% if last_t %}    {% else %}│   {% endif %}{% if loop.last %}└── {% else %}├── {% endif %}<a href="{{ p.permalink }}">{{ p.title }}</a>
+{% endfor %}{% endfor %}</pre>
+{% endblock %}

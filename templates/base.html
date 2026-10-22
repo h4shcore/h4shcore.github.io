@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ config.title }}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{{ config.description }}{% endblock %}">
+  <script>
+    (function () {
+      var r = document.documentElement;
+      r.classList.add("js");
+      try {
+        var t = localStorage.getItem("theme");
+        if (t) r.setAttribute("data-theme", t);
+        var calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var fx = localStorage.getItem("fx");
+        if (!fx && matchMedia("(pointer: coarse)").matches) fx = "off";
+        if (fx === "off") { r.setAttribute("data-fx", "off"); calm = true; }
+        if (!calm && !sessionStorage.getItem("booted")) r.classList.add("booting");
+        if (!calm && !sessionStorage.getItem("typed")) r.classList.add("js-type");
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
+  <link rel="alternate" type="application/atom+xml" title="{{ config.title }}" href="{{ get_url(path='atom.xml') }}">
+</head>
+<body>
+  <div id="boot" data-title="{{ config.title }}" data-author="{{ config.extra.author }}" data-host="{{ config.extra.host | default(value="zeus") }}" aria-hidden="true">
+    <div id="boot-text"></div>
+    <div class="skip">Press any key to skip</div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="brand" href="{{ get_url(path='/') }}">{{ config.title }}<span class="cursor"></span></a>
+      <nav>
+        <a href="{{ get_url(path='@/projects/_index.md') }}">Projects</a>
+        <a href="{{ get_url(path='@/blog/_index.md') }}">Blog</a>
+        <a href="{{ get_url(path='@/about.md') }}">About</a>
+        <button id="fx-toggle" type="button" aria-label="Toggle CRT effects" title="Toggle CRT effects">FX</button>
+        <button id="theme-toggle" type="button" aria-label="Change theme" title="Change theme">Theme</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">{% block content %}{% endblock %}</main>
+
+  {% set tx = get_taxonomy(kind="tags") %}
+  {% set all_projects = get_section(path="projects/_index.md") %}
+  {% set all_posts = get_section(path="blog/_index.md") %}
+  {% set pinned = load_data(path="data/pinned.json", required=false) %}
+
+  <footer class="site-footer">
+    <div class="wrap bar">
+      <span>(C) {{ now() | date(format="%Y") }} {{ config.extra.author }}</span>
+      <span class="links">
+        <a href="{{ config.extra.github }}">GitHub</a>
+        <a href="mailto:{{ config.extra.email }}">Email</a>
+        <a href="{{ get_url(path='atom.xml') }}">RSS</a>
+      </span>
+    </div>
+    <div class="wrap foot-meta">
+      <span class="links">
+        <a href="{{ get_url(path='@/now.md') }}">/now</a>
+        <a href="{{ get_url(path='@/resume.md') }}">/resume</a>
+        <a href="{{ tx.permalink }}">/tags</a>
+      </span>
+      <button id="cmd-open" type="button">[/] prompt</button>
+    </div>
+  </footer>
+
+  <div id="cmd-data" hidden>
+    <a data-group="page" href="{{ get_url(path='/') }}">Home</a>
+    <a data-group="page" href="{{ get_url(path='@/projects/_index.md') }}">Projects</a>
+    <a data-group="page" href="{{ get_url(path='@/blog/_index.md') }}">Blog</a>
+    <a data-group="page" href="{{ get_url(path='@/about.md') }}">About</a>
+    <a data-group="page" href="{{ get_url(path='@/now.md') }}">Now</a>
+    <a data-group="page" href="{{ get_url(path='@/resume.md') }}">Resume</a>
+    <a data-group="page" href="{{ tx.permalink }}">Tags</a>
+    {% if pinned %}{% for r in pinned.repos %}<a data-group="repo" href="{{ r.url }}">{{ r.name }}</a>{% endfor %}{% else %}{% for p in all_projects.pages %}<a data-group="project" href="{{ p.permalink }}">{{ p.title }}</a>{% endfor %}{% endif %}
+    {% for p in all_posts.pages %}<a data-group="post" href="{{ p.permalink }}">{{ p.title }}</a>{% endfor %}
+    <a data-group="cmd" data-action="theme" href="#">Cycle theme</a>
+    <a data-group="link" href="{{ config.extra.github }}">GitHub</a>
+    <a data-group="link" href="{{ get_url(path='atom.xml') }}">RSS feed</a>
+  </div>
+
+  <script src="{{ get_url(path='main.js') }}"></script>
+</body>
+</html>
