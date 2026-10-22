@@ -51,8 +51,10 @@
           src = ./.;
           nativeBuildInputs = [
             pkgs.zola
+            pkgs.cacert
             (org2zola pkgs)
           ];
+          SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
           buildPhase = ''
             runHook preBuild
             org2zola content
